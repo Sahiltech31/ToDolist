@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+    {% load static %}
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+
+    <div class="heading">
+        <h1>My Todo List</h1>
+    </div>
+
+    <div class="select">
+        <form action="{% url 'store_data' %}" method="POST">
+            {% csrf_token %}
+            <input type="text" id="data" name="data" placeholder="New task">
+            <button type="submit">Add</button>
+        </form>
+    </div>
+
+    <div class="last">Insert a new task</div>
+
+    <!-- Task Table -->
+    <table class="tasklist">
+        <thead>
+            <tr>
+                <th>Serial no.</th>
+                <th>Creation Time</th>
+                <th>Task</th>
+                <th>Status</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in tasks %}
+            <tr id="task-row-{{ item.id }}">
+                <td>{{ forloop.counter }}</td>
+                <td>{{ item.created_at|date:"g:i A" }}</td>
+                <td>
+                    <input type="text" value="{{ item.add }}" class="task-input" data-task-id="{{ item.id }}">
+                    <button onclick="updateTask('{{ item.id }}')">Save</button>
+                </td>
+                <td>
+                    <form method="POST" action="{% url 'toggle_status' item.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="bt">{{ item.status }}</button>
+                    </form>
+                </td>
+                <td>
+                    <form method="POST" action="{% url 'delete' item.add %}">
+                        {% csrf_token %}
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+            
+    </table>
+
+ 
+
+    <!-- AJAX Task Update Script -->
+    <script>
+    function updateTask(taskId) {
+        const input = document.querySelector(`.task-input[data-task-id='${taskId}']`);
+        const taskText = input.value;
+
+        fetch("{% url 'update_task' %}", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+                "X-CSRFToken": "{{ csrf_token }}",
+            },
+            body: `task_id=${taskId}&task_text=${encodeURIComponent(taskText)}`
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert("Task updated!");
+                // Optional: flash green background
+                const row = document.getElementById(`task-row-${taskId}`);
+                row.style.backgroundColor = "#d4edda"; // light green
+                setTimeout(() => {
+                    row.style.backgroundColor = "";
+                }, 1000);
+            } else {
+                alert("Update failed: " + data.error);
+            }
+        });
+    }
+    </script>
+
+</body>
+</html>
+
+
+
+

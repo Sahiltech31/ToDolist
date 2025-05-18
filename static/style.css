@@ -1,0 +1,162 @@
+body {
+    background-color: #f3f3f3;
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+}
+
+.heading {
+    text-align: center;
+    font-size: 30px;
+    font-weight: 600;
+    background-color: #9a65ce;
+    color: white;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.heading h1 {
+    margin: 0;
+}
+
+.select {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding-top: 50px;
+}
+
+input[type="text"] {
+    font-size: 18px;
+    padding: 12px;
+    width: 300px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    transition: border 0.3s ease-in-out;
+}
+
+input[type="text"]:focus {
+    border-color: #9a65ce;
+    outline: none;
+}
+
+button {
+    font-size: 18px;
+    padding: 12px 25px;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    transition: background-color 0.3s, transform 0.2s ease-in-out;
+}
+
+button:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
+}
+
+.bt {
+    background-color: red;
+}
+
+.last {
+    text-align: center;
+    padding-top: 30px;
+    font-size: 36px;
+    font-weight: bold;
+    color: #555;
+}
+
+/* Table styles */
+table.tasklist {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table.tasklist th,
+table.tasklist td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+table.tasklist button {
+    padding: 5px 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+table.tasklist button:hover {
+    background-color: #45a049;
+}
+
+/* Footer */
+.footer {
+    background-color: #4CAF50;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.footer .footer-content p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+.footer .footer-content p:first-child {
+    font-weight: bold;
+}
+
+.footer .footer-content p:hover {
+    color: #333;
+    cursor: pointer;
+}
+
+/* Media Queries for responsive design */
+@media (max-width: 768px) {
+    .heading {
+        font-size: 24px;
+    }
+
+    .select {
+        flex-direction: column;
+        gap: 15px;
+        padding-top: 30px;
+    }
+
+    input[type="text"],
+    button {
+        width: 100%;
+    }
+
+    .last {
+        font-size: 30px;
+    }
+}
+
+@media (max-width: 480px) {
+    .heading {
+        font-size: 20px;
+        padding: 15px;
+    }
+
+    input[type="text"],
+    button {
+        font-size: 16px;
+        padding: 10px;
+    }
+
+    .last {
+        font-size: 24px;
+    }
+
+    .footer .footer-content p {
+        font-size: 12px;
+    }
+}
